@@ -366,7 +366,7 @@ export default function Portfolio() {
       <div className="relative">
         <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden>
           {/* Neon gradient background (within 20% gradient area rule) */}
-          <div className="h-56 bg-[radial-gradient(ellipse_at_top,rgba(255,90,205,0.28),rgba(167,139,250,0.12)_50%,rgba(13,4,21,0)_80%)]"></div>
+          <div className="h-40 bg-[radial-gradient(ellipse_at_top,rgba(255,90,205,0.28),rgba(167,139,250,0.12)_50%,rgba(13,4,21,0)_80%)]"></div>
         </div>
         <Hero profile={profile} onContactClick={onContactClick} />
       </div>
