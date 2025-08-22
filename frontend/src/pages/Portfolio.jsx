@@ -24,6 +24,8 @@ import {
   Boxes,
 } from "lucide-react";
 
+const API_BASE = process.env.REACT_APP_BACKEND_URL; // must be defined via .env
+
 const Section = ({ id, label, children }) => (
   <section id={id} className="container mx-auto max-w-6xl px-6 md:px-8 py-12 md:py-16">
     <div className="label mb-4 uppercase tracking-widest text-[12px] text-[color:var(--accent-primary)]">{label}</div>
@@ -270,13 +272,34 @@ const Contact = ({ email }) => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const payload = { ...form, id: Date.now(), createdAt: new Date().toISOString() };
+  const saveLocal = (payload) => {
     const existing = JSON.parse(localStorage.getItem("suki_contact_msgs") || "[]");
     localStorage.setItem("suki_contact_msgs", JSON.stringify([payload, ...existing]));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const payload = { ...form, id: Date.now(), createdAt: new Date().toISOString() };
+
+    try {
+      const res = await fetch(`${API_BASE}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: form.name, email: form.email, message: form.message })
+      });
+      if (res.ok) {
+        toast({ title: "Email queued", description: "Your message was sent via server.", duration: 3000 });
+      } else {
+        // SMTP not configured yet → fallback to mock local save
+        saveLocal(payload);
+        toast({ title: "Saved locally (mock)", description: "Email service not configured yet.", duration: 3000 });
+      }
+    } catch (err) {
+      saveLocal(payload);
+      toast({ title: "Saved locally (mock)", description: "Network issue. Will wire once server is ready.", duration: 3000 });
+    }
+
     setForm({ name: "", email: "", message: "" });
-    toast({ title: "Message saved (mock)", description: "Stored locally. Backend integration comes next.", duration: 3000 });
   };
 
   const copyEmail = async () => {
@@ -323,7 +346,7 @@ const Contact = ({ email }) => {
             </div>
             <div className="pt-2">
               <Button type="submit" className="bg-[color:var(--accent-primary)] hover:bg-[color:var(--accent-hover)] text-[color:var(--accent-foreground)] border-0">
-                Send Message (Mock)
+                Send Message
               </Button>
             </div>
           </form>
