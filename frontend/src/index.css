@@ -5,36 +5,40 @@
 @tailwind utilities;
 
 :root {
-  /* Tech Slate/Navy base + Electric Blue accents */
-  --background: 218 60% 7%; /* #0B192E approx in HSL */
+  /* Neon background with violet/purple/pink/white (user request) */
+  --background: 268 58% 7%; /* deep indigo */
   --foreground: 210 40% 96%; /* near-white text */
-  --card: 218 55% 10%;
+  --card: 268 54% 11%;
   --card-foreground: 210 40% 96%;
-  --popover: 218 55% 10%;
+  --popover: 268 54% 11%;
   --popover-foreground: 210 40% 96%;
-  --primary: 224 64% 34%; /* #1E3A8A */
+  --primary: 277 66% 45%; /* electric violet */
   --primary-foreground: 210 40% 96%;
-  --secondary: 215 28% 17%;
+  --secondary: 285 32% 18%;
   --secondary-foreground: 210 40% 96%;
-  --muted: 215 28% 17%;
-  --muted-foreground: 215 15% 72%;
-  --accent: 215 28% 17%;
-  --accent-foreground: 218 60% 7%;
+  --muted: 285 32% 18%;
+  --muted-foreground: 280 15% 78%;
+  --accent: 285 32% 18%;
+  --accent-foreground: 268 58% 7%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 96%;
-  --border: 215 15% 30%;
-  --input: 215 15% 30%;
+  --border: 280 18% 30%;
+  --input: 280 18% 30%;
   --ring: 210 40% 96%;
-  /* Custom design tokens matching user choice */
-  --accent-primary: #22A2FF; /* electric blue */
-  --accent-hover: #1C8CDB;
-  --accent-active: #1878BA;
-  --accent-foreground: #0B192E;
-  --text-primary: #E6EEF6;
-  --text-secondary: rgba(230, 238, 246, 0.7);
+  /* Custom design tokens (neon) */
+  --accent-primary: #FF5ACD; /* neon pink */
+  --accent-hover: #E14DB6;
+  --accent-active: #C5419D;
+  --accent-foreground: #0D0415; /* deep indigo for legibility on neon */
+  --text-primary: #F6F3FF;
+  --text-secondary: rgba(246, 243, 255, 0.75);
   --border-color: rgba(255, 255, 255, 0.28);
   --border-light: rgba(255, 255, 255, 0.12);
-  --hero-title-color: #F2F7FC;
+  --hero-title-color: #FFFFFF;
+  --neon-violet: #8B5CF6;
+  --neon-pink: #FF5ACD;
+  --neon-purple: #A78BFA;
+  --neon-white: #FFFFFF;
 }
 
 .dark {
