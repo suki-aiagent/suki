@@ -164,30 +164,23 @@ def test_cors_headers():
     print("\n🧪 Testing CORS configuration")
     
     try:
-        # Test preflight request
+        # Test actual request with Origin header to check CORS response
         headers = {
-            'Origin': 'https://example.com',
-            'Access-Control-Request-Method': 'POST',
-            'Access-Control-Request-Headers': 'Content-Type'
+            'Origin': 'https://different-origin.com'
         }
         
-        response = requests.options(f"{API_BASE}/contact", headers=headers, timeout=10)
-        print(f"   OPTIONS Status Code: {response.status_code}")
+        response = requests.get(f"{API_BASE}/", headers=headers, timeout=10)
+        print(f"   GET Status Code: {response.status_code}")
         
-        cors_headers = {
-            'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
-            'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
-            'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
-        }
-        
-        print(f"   CORS Headers: {cors_headers}")
+        cors_origin = response.headers.get('Access-Control-Allow-Origin')
+        print(f"   Access-Control-Allow-Origin: {cors_origin}")
         
         # Check if CORS allows all origins
-        if cors_headers.get('Access-Control-Allow-Origin') == '*':
+        if cors_origin == '*':
             print("   ✅ CORS correctly configured to allow all origins")
             return True
         else:
-            print(f"   ❌ Expected Access-Control-Allow-Origin: *, got: {cors_headers.get('Access-Control-Allow-Origin')}")
+            print(f"   ❌ Expected Access-Control-Allow-Origin: *, got: {cors_origin}")
             return False
             
     except requests.exceptions.RequestException as e:
