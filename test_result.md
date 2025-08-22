@@ -107,15 +107,18 @@
 ## backend:
   - task: "Implement POST /api/contact (email-only via SMTP placeholders)"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added ContactMessageIn, ContactResponse models; implemented send_email_smtp with Gmail STARTTLS; returns 400 SMTP_NOT_CONFIGURED until env vars set."
+      - working: true
+        agent: "testing"
+        comment: "✅ All backend tests passed: GET /api/ returns 200 with 'Hello World', POST /api/contact properly validates fields (422 for missing/invalid), returns 400 with correct JSON {ok:false, error:'SMTP_NOT_CONFIGURED'} when SMTP env vars missing, server bound to 0.0.0.0:8001, CORS allows all origins (*). Created comprehensive backend_test.py for future testing."
 
 ## frontend:
   - task: "Wire contact form to backend with fallback to localStorage"
