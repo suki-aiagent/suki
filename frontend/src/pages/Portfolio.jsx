@@ -121,8 +121,18 @@ const Hero = ({ profile, onContactClick }) => {
 };
 
 const Skills = ({ skills }) => {
+  const logos = {
+    aws: "https://simpleicons.org/icons/amazonaws.svg",
+    jenkins: "https://simpleicons.org/icons/jenkins.svg",
+    terraform: "https://simpleicons.org/icons/terraform.svg",
+  };
   return (
     <Section id="skills" label="Core Skills">
+      <div className="mb-6 flex items-center gap-6 opacity-90">
+        <img src={logos.aws} alt="AWS" className="h-8 w-auto" />
+        <img src={logos.jenkins} alt="Jenkins" className="h-8 w-auto" />
+        <img src={logos.terraform} alt="Terraform" className="h-8 w-auto" />
+      </div>
       <Tabs defaultValue="primary" className="w-full">
         <TabsList className="grid w-full grid-cols-2 bg-transparent border border-[color:var(--border-color)]">
           <TabsTrigger value="primary">Primary</TabsTrigger>
