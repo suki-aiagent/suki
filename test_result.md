@@ -101,3 +101,48 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+## user_problem_statement: "Create a professional portfolio website for an AWS Cloud Engineer & DevOps Engineer with contact form; implement email-only backend endpoint with placeholders for Gmail SMTP."
+
+## backend:
+  - task: "Implement POST /api/contact (email-only via SMTP placeholders)"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added ContactMessageIn, ContactResponse models; implemented send_email_smtp with Gmail STARTTLS; returns 400 SMTP_NOT_CONFIGURED until env vars set."
+
+## frontend:
+  - task: "Wire contact form to backend with fallback to localStorage"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Portfolio.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Form posts to `${REACT_APP_BACKEND_URL}/api/contact`. On non-200, falls back to saving locally and shows toast."
+
+## metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+## test_plan:
+  current_focus:
+    - "Test POST /api/contact success and SMTP_NOT_CONFIGURED error path"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+  - agent: "main"
+    message: "Please run deep backend tests for /api/contact, including missing env vars (expect 400) and general validation errors; no SMTP creds present yet."
