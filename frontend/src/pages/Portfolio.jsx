@@ -355,7 +355,8 @@ export default function Portfolio() {
       <Header onContactClick={onContactClick} resumeUrl={profile.resumeUrl} />
       <div className="relative">
         <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden>
-          <div className="h-48 bg-[radial-gradient(ellipse_at_top,rgba(34,162,255,0.22),rgba(11,25,46,0))]"></div>
+          {/* Neon gradient background (within 20% gradient area rule) */}
+          <div className="h-56 bg-[radial-gradient(ellipse_at_top,rgba(255,90,205,0.28),rgba(167,139,250,0.12)_50%,rgba(13,4,21,0)_80%)]"></div>
         </div>
         <Hero profile={profile} onContactClick={onContactClick} />
       </div>
